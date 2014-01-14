@@ -22,7 +22,7 @@ TextView tv;
 		
 	for(ApplicationInfo packageInfo : packages){
 		String packageName = packageInfo.packageName;
-		tv.setText(tv.getText().toString() + "\n" +  "\n" +" |//////// " + packageName+ " ////////| ");
+	//	tv.setText(tv.getText().toString() + "\n" +  "\n" +" |//////// " + packageName+ " ////////| ");
 		try
 		{
 			PackageInfo pkgInfo = getPackageManager().getPackageInfo(
@@ -34,7 +34,10 @@ TextView tv;
 		for (PermissionInfo permission : permissions){
 			
 				String permissionStr = permission.toString();
-				tv.setText(tv.getText().toString() + "\n" + permissionStr);
+				if (permissionStr.contains("RECEIVE_SMS")){
+					tv.setText(tv.getText().toString() + "\n" +  "\n" +packageName);	
+				}
+			//	tv.setText(tv.getText().toString() + "\n" + permissionStr);
 //			Toast.makeText(this, "null.", Toast.LENGTH_SHORT).show();
 				}
 			}
