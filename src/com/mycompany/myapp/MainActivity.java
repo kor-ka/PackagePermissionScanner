@@ -17,23 +17,28 @@ TextView tv;
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        tv = (TextView) this.activity.findViewById(R.id.tv);
+        tv = (TextView) findViewById(R.id.tv);
 	List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
 		
 	for(ApplicationInfo packageInfo : packages){
 		String packageName = packageInfo.packageName;
-		tv.setText(tv.getText().toString() + "\n" +  "\n" +" | " + packageName+ " | ")
+		tv.setText(tv.getText().toString() + "\n" +  "\n" +" |//////// " + packageName+ " ////////| ");
 		try
 		{
 			PackageInfo pkgInfo = getPackageManager().getPackageInfo(
-				packageName, 
+				packageInfo.packageName, 
 				PackageManager.GET_PERMISSIONS
 			);
 			PermissionInfo[] permissions = pkgInfo.permissions;
-			for (PermissionInfo permission : permissions){
+			if (permissions != null){
+		for (PermissionInfo permission : permissions){
+			
 				String permissionStr = permission.toString();
-				tv.setText(tv.getText().toString() + "\n" +  permissionStr);
+				tv.setText(tv.getText().toString() + "\n" + permissionStr);
+//			Toast.makeText(this, "null.", Toast.LENGTH_SHORT).show();
+				}
 			}
+			
 		}
 		catch (PackageManager.NameNotFoundException e)
 		{}
