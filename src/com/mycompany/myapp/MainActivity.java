@@ -10,17 +10,19 @@ import android.content.pm.PackageManager.*;
 
 public class MainActivity extends Activity
 {
+TextView tv;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-	List<ApplicationInfo> packages =	getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+        tv = (TextView) this.activity.findViewById(R.id.tv);
+	List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
 		
 	for(ApplicationInfo packageInfo : packages){
 		String packageName = packageInfo.packageName;
-		
+		tv.setText(tv.getText().toString() + "\n" +  "\n" +" | " + packageName+ " | ")
 		try
 		{
 			PackageInfo pkgInfo = getPackageManager().getPackageInfo(
@@ -29,7 +31,8 @@ public class MainActivity extends Activity
 			);
 			PermissionInfo[] permissions = pkgInfo.permissions;
 			for (PermissionInfo permission : permissions){
-				permission.toString();
+				String permissionStr = permission.toString();
+				tv.setText(tv.getText().toString() + "\n" +  permissionStr);
 			}
 		}
 		catch (PackageManager.NameNotFoundException e)
